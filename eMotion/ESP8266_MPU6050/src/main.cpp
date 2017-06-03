@@ -46,7 +46,7 @@ const char* password = "trespatios";
 // A UDP instance to let us send and receive packets over UDP
 WiFiUDP Udp;
 //const IPAddress outIp(192, 168, 1, 95);
-const IPAddress outIp(192, 168, 0, 100);
+const IPAddress outIp(192, 168, 0, 141);
 const unsigned int outPort = 10101;
 
 
@@ -125,7 +125,7 @@ void loop() {
     getAccel(); // Print ?A: ax, ay, az?
 
     //sendViaOSC();
-    //sendBundleViaOSC();
+    sendBundleViaOSC();
   }
 }
 
