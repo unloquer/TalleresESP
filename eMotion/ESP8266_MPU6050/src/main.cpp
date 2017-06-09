@@ -41,6 +41,14 @@ MPU6050 accelgyro;
 // more info, see: http://en.wikipedia.org/wiki/Gimbal_lock)
 #define OUTPUT_READABLE_YAWPITCHROLL
 
+// uncomment "OUTPUT_READABLE_REALACCEL" if you want to see acceleration
+// components with gravity removed. This acceleration reference frame is
+// not compensated for orientation, so +X is always +X according to the
+// sensor, just without the effects of gravity. If you want acceleration
+// compensated for orientation, us OUTPUT_READABLE_WORLDACCEL instead.
+//#define OUTPUT_READABLE_REALACCEL
+
+
 // MPU control/status vars
 bool dmpReady = false;  // set true if DMP init was successful
 uint8_t mpuIntStatus;   // holds actual interrupt status byte from MPU
@@ -273,18 +281,29 @@ void getGyro() {
   Serial.println(gy);
   Serial.print("gz:");
   Serial.println(gz);
-
 }
 
 void getAccel()
 {
-  accelgyro.getAcceleration(&ax, &ay, &az);
-  Serial.print("ax:");
-  Serial.println(ax);
-  Serial.print("ay:");
-  Serial.println(ay);
-  Serial.print("az:");
-  Serial.println(az);
+  //  accelgyro.getAcceleration(&ax, &ay, &az);
+#ifdef OUTPUT_READABLE_REALACCEL
+  // display real acceleration, adjusted to remove gravity
+  //accelgyro.dmpGetQuaternion(&q, fifoBuffer);
+  accelgyro.dmpGetAccel(&aa, fifoBuffer);
+  //accelgyro.dmpGetGravity(&gravity, &q);
+  accelgyro.dmpGetLinearAccel(&aaReal, &aa, &gravity);
+  Serial.print("areal\t");
+  Serial.print(aaReal.x);
+  Serial.print("\t");
+  Serial.print(aaReal.y);
+  Serial.print("\t");
+  Serial.println(aaReal.z);
+#endif
 
-
+  /* Serial.print("ax:"); */
+  /* Serial.println(ax); */
+  /* Serial.print("ay:"); */
+  /* Serial.println(ay); */
+  /* Serial.print("az:"); */
+  /* Serial.println(az); */
 }
