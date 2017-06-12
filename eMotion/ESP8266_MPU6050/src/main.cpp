@@ -73,15 +73,15 @@ long sendCount = 0;
 long frameCount = 0;
 
 /***WIFI NAME AND PASSWORD****/
-const char* ssid     = "C3P";
-const char* password = "trespatios";
+const char* ssid     = "Hostal de la 57";
+const char* password = "hostal57";
 //const char* ssid     = "Your SSID name";
 //const char* password = "YourPassword";
 
 // A UDP instance to let us send and receive packets over UDP
 WiFiUDP Udp;
 //const IPAddress outIp(192, 168, 1, 95);
-const IPAddress outIp(192, 168, 0, 141);
+const IPAddress outIp(192, 168, 0, 113);
 const unsigned int outPort = 10101;
 
 
@@ -196,9 +196,9 @@ void loop() {
     //getAccel(); // Print ?A: ax, ay, az?
 
     getMpuData();
+    sendBundleViaOSC();
 
     //sendViaOSC();
-    //sendBundleViaOSC();
   }
 }
 
@@ -219,12 +219,15 @@ void sendViaOSC() {
 void sendBundleViaOSC() {
   OSCBundle bndl;
 
-  bndl.add("/esp/accelX").add(ax);
-  bndl.add("/esp/accelY").add(ay);
-  bndl.add("/esp/accelZ").add(az);
-  bndl.add("/esp/gyroX").add(gx);
-  bndl.add("/esp/gyroY").add(gy);
-  bndl.add("/esp/gyroZ").add(gz);
+  bndl.add("/esp/yaw").add((float)ypr[0] * 180/M_PI);
+  bndl.add("/esp/pitch").add((float)ypr[1] * 180/M_PI);
+  bndl.add("/esp/roll").add((float)ypr[2] * 180/M_PI);
+  // bndl.add("/esp/accelX").add(ax);
+  // bndl.add("/esp/accelY").add(ay);
+  // bndl.add("/esp/accelZ").add(az);
+  // bndl.add("/esp/gyroX").add(gx);
+  // bndl.add("/esp/gyroY").add(gy);
+  // bndl.add("/esp/gyroZ").add(gz);
 
   Udp.beginPacket(outIp, outPort);
   bndl.send(Udp); // send the bytes to the SLIP stream

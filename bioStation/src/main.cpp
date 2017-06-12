@@ -22,8 +22,8 @@ DHT dht(DHTPIN, DHTTYPE);
 aREST_UI rest = aREST_UI();
 
 // WiFi parameters
-const char* ssid = "C3P";
-const char* password = "trespatios";
+const char* ssid = "dd-wrt";
+const char* password = "";
 
 // The port to listen for incoming TCP connections
 #define LISTEN_PORT           80
@@ -34,8 +34,6 @@ WiFiServer server(LISTEN_PORT);
 // Variables to be exposed to the API
 float temperature;
 float humidity;
-
-int ledControl(String command);
 
 void setup(void) {
   // Start Serial
@@ -82,8 +80,9 @@ void loop() {
   
   temperature = dht.readTemperature();
   humidity = dht.readHumidity();
-  rest.variable("temperature", &temperature);
-  rest.variable("humidity", &humidity);
+
+  //Serial.print("temperature ");Serial.println(temperature);
+  //Serial.print("humidity ");Serial.println(humidity);
 
   if (!client) {
     return;

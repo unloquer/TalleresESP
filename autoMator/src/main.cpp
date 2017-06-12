@@ -13,8 +13,8 @@
 aREST_UI rest = aREST_UI();
 
 // WiFi parameters
-const char* ssid = "C3P";
-const char* password = "trespatios";
+const char* ssid = "dd-wrt";
+const char* password = "";
 
 // The port to listen for incoming TCP connections
 #define LISTEN_PORT           80
