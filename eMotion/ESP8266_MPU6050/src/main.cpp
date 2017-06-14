@@ -81,7 +81,8 @@ const char* password = "hostal57";
 // A UDP instance to let us send and receive packets over UDP
 WiFiUDP Udp;
 //const IPAddress outIp(192, 168, 1, 95);
-const IPAddress outIp(192, 168, 0, 113);
+
+const IPAddress outIp(192, 168, 1, 73);
 const unsigned int outPort = 10101;
 
 
@@ -103,11 +104,11 @@ void setup() {
 
 
   // join I2C bus (I2Cdev library doesn't do this automatically)
-#if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
-  Wire.begin(4, 5);
-#elif I2CDEV_IMPLEMENTATION == I2CDEV_BUILTIN_FASTWIRE
-  Fastwire::setup(400, true);
-#endif
+  #if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
+    Wire.begin(4, 5);
+  #elif I2CDEV_IMPLEMENTATION == I2CDEV_BUILTIN_FASTWIRE
+    Fastwire::setup(400, true);
+  #endif
   // initialize serial communication
   // (38400 chosen because it works as well at 8MHz as it does at 16MHz, but
   // it's really up to you depending on your project)
@@ -256,12 +257,12 @@ void getMpuData() {
 
     // read a packet from FIFO
     accelgyro.getFIFOBytes(fifoBuffer, packetSize);
-        
+
     // track FIFO count here in case there is > 1 packet available
     // (this lets us immediately read more without waiting for an interrupt)
     fifoCount -= packetSize;
 
-#ifdef OUTPUT_READABLE_YAWPITCHROLL
+    #ifdef OUTPUT_READABLE_YAWPITCHROLL
     // display Euler angles in degrees
     accelgyro.dmpGetQuaternion(&q, fifoBuffer);
     accelgyro.dmpGetGravity(&gravity, &q);
@@ -272,12 +273,15 @@ void getMpuData() {
     Serial.print(ypr[1] * 180/M_PI);
     Serial.print("\t");
     Serial.println(ypr[2] * 180/M_PI);
-#endif
+    #endif
   }
 }
 
 void getGyro() {
   accelgyro.getRotation(&gx, &gy, &gz);
+}
+
+void printGyro() {
   Serial.print("gx:");
   Serial.println(gx);
   Serial.print("gy:");
@@ -286,10 +290,9 @@ void getGyro() {
   Serial.println(gz);
 }
 
-void getAccel()
-{
+void getAccel() {
   //  accelgyro.getAcceleration(&ax, &ay, &az);
-#ifdef OUTPUT_READABLE_REALACCEL
+  #ifdef OUTPUT_READABLE_REALACCEL
   // display real acceleration, adjusted to remove gravity
   //accelgyro.dmpGetQuaternion(&q, fifoBuffer);
   accelgyro.dmpGetAccel(&aa, fifoBuffer);
@@ -301,7 +304,7 @@ void getAccel()
   Serial.print(aaReal.y);
   Serial.print("\t");
   Serial.println(aaReal.z);
-#endif
+  #endif
 
   /* Serial.print("ax:"); */
   /* Serial.println(ax); */
