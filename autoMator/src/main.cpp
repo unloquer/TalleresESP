@@ -13,8 +13,9 @@
 aREST_UI rest = aREST_UI();
 
 // WiFi parameters
-const char* ssid = "dd-wrt";
-const char* password = "";
+const char* ssid = "Hostal de la 57";
+const char* password = "hostal57";
+
 
 // The port to listen for incoming TCP connections
 #define LISTEN_PORT           80
