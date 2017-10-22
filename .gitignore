@@ -9,4 +9,7 @@ dist
 coverage
 .nyc_output
 .tmp
-.DS_Store
+.DS_Store.pioenvs
+.piolibdeps
+.clang_complete
+.pioenvs/

@@ -131,10 +131,10 @@ void setup() {
 }
 
 void loop() {
-  count++;
+  //  count++;
   if(count > 1000) {
     getMpuData();
-    // printGyro();
+    printGyro();
   }
 
   // Call loop for WebSockets client

@@ -66,7 +66,7 @@ void loop() {
 
   for(int i = 0; i< kMatrixHeight; i++) {
     for(int j = 0; j< kMatrixWidth; j++) {
-      matrix[loop_cnt%2][i][j] ? leds[i*kMatrixWidth + j] = matrix[loop_cnt%2][i][j] : leds[i*kMatrixWidth + j] = CRGB::Black;
+      leds[i*kMatrixWidth + j] = matrix[loop_cnt%2][i][j];
     }
   }
   FastLED.show();
@@ -78,5 +78,4 @@ void loop() {
   }
   delay(500);
   loop_cnt++;
-  
 }

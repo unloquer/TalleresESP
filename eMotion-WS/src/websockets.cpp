@@ -38,7 +38,7 @@ void wsSend(String message) {
 }
 
 void wsSetup() {
-  client.begin("192.168.1.73", 8080);
+  client.begin("192.168.88.20", 8080);
   client.onEvent(webSocketEvent);
 }
 

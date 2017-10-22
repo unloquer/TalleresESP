@@ -22,8 +22,8 @@ DHT dht(DHTPIN, DHTTYPE);
 aREST_UI rest = aREST_UI();
 
 // WiFi parameters
-const char* ssid = "Hostal de la 57";
-const char* password = "hostal57";
+const char* ssid = "K5";
+const char* password = "seracambiar9";
 
 // The port to listen for incoming TCP connections
 #define LISTEN_PORT           80

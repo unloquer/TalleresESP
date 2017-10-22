@@ -73,8 +73,8 @@ long sendCount = 0;
 long frameCount = 0;
 
 /***WIFI NAME AND PASSWORD****/
-const char* ssid     = "Hostal de la 57";
-const char* password = "hostal57";
+const char* ssid     = "K5";
+const char* password = "seracambiar9";
 //const char* ssid     = "Your SSID name";
 //const char* password = "YourPassword";
 
