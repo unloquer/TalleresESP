@@ -9,7 +9,7 @@ const uint8_t kMatrixWidth  = 4;
 const uint8_t kMatrixHeight = 4;
 #define NUM_LEDS (kMatrixWidth * kMatrixHeight)
 
-int BRIGHTNESS = 100;   // this is half brightness
+int BRIGHTNESS = 60;   // this is half brightness
 CRGB leds[kMatrixWidth * kMatrixHeight];
 
 #define amarillo CRGB::Yellow 
@@ -46,18 +46,20 @@ void setup() {
   z = random16();
 }
 
-CRGB matrix[2][4][4] = {
+#define ESCENAS 2
+
+CRGB matrix[ESCENAS][4][4] = {
   {
-    {amarillo, amarillo, amarillo, amarillo},
-    {amarillo,black, black, amarillo},
-    {amarillo, black, black,amarillo},
-    {amarillo, amarillo, amarillo, amarillo}
+    {CRGB::Green, CRGB::Black, CRGB::Green,CRGB::Green},
+    {CRGB::Green, CRGB::Green, CRGB::Green,CRGB::Green},
+    {CRGB::Green, CRGB::Black, CRGB::Green,CRGB::Green},
+    {CRGB::Black, CRGB::Black, CRGB::Black,CRGB::Green}
   },
   {
-    {black, black, black, black},
-    {black, rojo, rojo, black},
-    {black, rojo, rojo, black},
-    {black, black, black, black}
+    {CRGB::Blue, CRGB::Blue, CRGB::Blue,CRGB::Green},
+    {CRGB::Black, CRGB::Blue, CRGB::Black,CRGB::Green},
+    {CRGB::Black, CRGB::Blue, CRGB::Black,CRGB::Green},
+    {CRGB::Black, CRGB::Blue, CRGB::Black,CRGB::Green}
   }
 };
 
@@ -66,7 +68,7 @@ void loop() {
 
   for(int i = 0; i< kMatrixHeight; i++) {
     for(int j = 0; j< kMatrixWidth; j++) {
-      leds[i*kMatrixWidth + j] = matrix[loop_cnt%2][i][j];
+      leds[i*kMatrixWidth + j] = matrix[loop_cnt%ESCENAS][i][j];
     }
   }
   FastLED.show();
